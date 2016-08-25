@@ -6,4 +6,3 @@ cpanm --notest --local-lib-contained libs Bio::Perl
 cpanm --notest --local-lib-contained libs GraphViz
 wget ftp://ftp.ensembl.org/pub/current_fasta/saccharomyces_cerevisiae/dna/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa.gz
 mkdir work_dir
-mkdir -p demo_modules/{PipeConfig,libs}
