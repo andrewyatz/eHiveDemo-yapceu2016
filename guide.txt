@@ -9,13 +9,11 @@ export EHIVE_URL=sqlite:///my_pipeline_database
 
 beekeeper.pl -url $EHIVE_URL -loop -sleep 0.1
 
-rm work_dir/* my_pipeline_database
-
 # Look at the jobs we created
-echo 'select * from job;' | sqlite3 my_pipeline_database
+echo 'select * from job;' | sqlite3 -header my_pipeline_database
 
 # See the results
-echo 'select * from final_result' | sqlite3 my_pipeline_database
+echo 'select * from final_result;' | sqlite3 -header my_pipeline_database
 
 # Now generate a graph of the analysis
 generate_graph.pl $EHIVE_URL --pipeconfig $PIPECONFIG -output graph.png
