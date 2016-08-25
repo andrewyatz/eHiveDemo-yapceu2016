@@ -1,0 +1,24 @@
+# Export the core module
+export PIPECONFIG="Bio::EnsEMBL::Hive::Examples::GC::PipeConfig::GCPct_conf"
+
+# Create a pipeline. We will create files with a max of 1000 residues 
+init_pipeline.pl $PIPECONFIG --inputfile "Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa.gz" --output_dir work_dir --max_chunk_length 1000 --pipeline_url sqlite:///my_pipeline_database
+
+# We run the pipeline 
+export EHIVE_URL=sqlite:///my_pipeline_database
+
+beekeeper.pl -url $EHIVE_URL -loop -sleep 0.1
+
+rm work_dir/* my_pipeline_database
+
+# Look at the jobs we created
+echo 'select * from job;' | sqlite3 my_pipeline_database
+
+# See the results
+echo 'select * from final_result' | sqlite3 my_pipeline_database
+
+# Now generate a graph of the analysis
+generate_graph.pl $EHIVE_URL --pipeconfig $PIPECONFIG -output graph.png
+
+# Cleanup files
+rm my_pipeline_database work_dir/* graph.png

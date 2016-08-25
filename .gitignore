@@ -1,0 +1,4 @@
+*.fa.gz
+/work_dir
+/libs
+/ensembl-hive
